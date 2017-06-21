@@ -1,7 +1,6 @@
 /* used gradient maker http://www.cssmatic.com/gradient-generator*/
 body {
   background: radial-gradient(ellipse at center, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 0%, rgba(209,209,209,1) 0%, rgba(225,225,225,1) 30%, rgba(235,235,235,1) 51%, rgba(254,254,254,1) 87%);
-  /*background-color: lightgrey;*/
 }
 
 h1 {
@@ -12,7 +11,6 @@ main {
   text-align: center;
 }
 
-
 img {
   width: 28%;
   margin-left: auto;
@@ -20,5 +18,4 @@ img {
   margin-top: auto;
   margin-bottom: auto;
   padding: 2%;
-
 }
