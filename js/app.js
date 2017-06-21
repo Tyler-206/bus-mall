@@ -152,4 +152,5 @@ function showChart () {
       }
     }
   });
+  console.log (chart);
 }
