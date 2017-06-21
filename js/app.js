@@ -1,7 +1,4 @@
 'use strict';
-
-//store info on which were clicked
-
 //persistence of data
 //when we persist date, we need to be able to do four things with it:
 // create the data -
@@ -46,6 +43,9 @@ var img2 = '';
 var img3 = '';
 var totalClicks = 0;
 var maxClicks = 25;
+var productNames = [];
+var clickData = [];
+var shownData = [];
 var productsParent = document.getElementById('products');
 //initiate 3 images on the screen
 function productSelector () {
@@ -77,9 +77,7 @@ function productSelector () {
   };
   renderProductImage(img3);
   currentImages.push(img3);
-  //push images to array to prevent from using in next 3
-  // console.log(currentImages);
-//trying to get it to add to shown
+
   for (i = 0; i < productArray.length; i++) {
     if (productArray[i].fileName == currentImages[2].fileName) {
       productArray[i].shown++;
@@ -92,6 +90,8 @@ productSelector();
 //make something happen when a picture is clicked
 productsParent.addEventListener('click', function () {
   if (totalClicks === maxClicks) {
+    productsParent.innerHTML = '';
+    showChart();
     return;
   };
   previousImages = currentImages.splice(0,3);
@@ -101,10 +101,8 @@ productsParent.addEventListener('click', function () {
   for (var j = 0; j < productArray.length; j++) {
     if (productArray[j].fileName == currentImages[0 || 1 || 2].fileName) {
       productArray[j].timesClicked++;
-      console.log(productArray[j].fileName);
     };
   };
-  console.log (totalClicks);
 });
 
 //used for generating a random picture choice
@@ -119,3 +117,39 @@ function renderProductImage (productArray) {
   img.setAttribute('src', 'images/' + productArray.fileName);
   productsParent.append(img);
 };
+
+// Setting the charting in a function
+function showChart () {
+  for (var i = 0; i < productArray.length; i++) {
+    productNames.push(productArray[i].name);
+    clickData.push(productArray[i].timesClicked);
+    shownData.push(productArray[i].shown);
+  }
+  var ctx = document.getElementById('chart').getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productNames,
+      datasets: [{
+        label: '# of clicks',
+        data: clickData,
+        backgroundColor: ('#8DBDE6'),
+        borderWidth: 1
+      },{
+        label: '# times Shown',
+        data: shownData,
+        backgroundColor: ('#A2E68D'),
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
+      }
+    }
+  });
+}
