@@ -66,17 +66,17 @@ function productSelector () {
   currentImages.push(img3);
   console.log(currentImages);
 
-  for (var i = 0; i < productNames.length; i++) {
-    if (currentImages[i] == Product.fileName[i]) {
-      Product[i].shown++;
-      console.log(Product[i]);
+  // for (var i = 0; i < productNames.length; i++) {
+  //   if (currentImages[i] == Product.fileName[i]) {
+  //     Product[i].shown++;
+  //     console.log(Product[i]);
       // for (var j = 0; j < objectList.length; j++) {
       //       if (objectList[j].fileName == currentlyShowing[i]) {
       //         objectList[j].timesShown++;
       //         console.log(objectList[j]);
       //       }
-    };
-  };
+    // };
+  // };
 }
 //call the function
 productSelector();
