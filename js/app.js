@@ -84,6 +84,7 @@ function productSelector () {
     };
   };
 }
+createOrUpdateClickData ();
 //call the function initially
 productSelector();
 
@@ -103,6 +104,7 @@ productsParent.addEventListener('click', function () {
       productArray[j].timesClicked++;
     };
   };
+  getData();
 });
 
 //used for generating a random picture choice
@@ -118,6 +120,43 @@ function renderProductImage (productArray) {
   productsParent.append(img);
 };
 
+//for storage
+var clickSaveData = {
+  Bag: productArray[0].timesClicked,
+  Banana: productArray[1].timesClicked,
+  Bathroom: productArray[2].timesClicked,
+  Boots: productArray[3].timesClicked,
+  Breakfast: productArray[4].timesClicked,
+  Bubblegum: productArray[5].timesClicked,
+  Chair: productArray[6].timesClicked,
+  Cthulhu: productArray[7].timesClicked,
+  DogDuck: productArray[8].timesClicked,
+  Dragon: productArray[9].timesClicked,
+  Pen: productArray[10].timesClicked,
+  PetSweep: productArray[11].timesClicked,
+  Scissors: productArray[12].timesClicked,
+  Shark: productArray[13].timesClicked,
+  Sweep: productArray[14].timesClicked,
+  Tauntaun: productArray[15].timesClicked,
+  Unicorn: productArray[16].timesClicked,
+  usb: productArray[17].timesClicked,
+  WaterCan: productArray[18].timesClicked,
+  WineGlass: productArray[19].timesClicked,
+};
+
+
+function createOrUpdateClickData () {
+  var stringifiedClickData = JSON.stringify(clickSaveData);
+  localStorage.setItem('ClickData', stringifiedClickData);
+  var stringifiedTotalClicks = totalClicks.toString();
+  localStorage.setItem('TotalClicks', stringifiedTotalClicks);
+};
+
+function getData () {
+  var getClickData = localStorage.getItem('ClickData');
+  var getTotalClicks = localStorage.getItem('TotalClicks');
+  return [getClickData,getTotalClicks];
+}
 // Setting the charting in a function
 function showChart () {
   for (var i = 0; i < productArray.length; i++) {
@@ -154,3 +193,4 @@ function showChart () {
   });
   console.log (chart);
 }
+getData();
