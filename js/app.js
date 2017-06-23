@@ -9,26 +9,28 @@ function Product (name, fileName, filePath) {
 };
 
 var productArray = [];
-productArray.push( new Product ('Bag', 'bag.jpg', 'img/bag.jpg'));
-productArray.push( new Product ('Banana', 'banana.jpg', 'img/banana.jpg'));
-productArray.push( new Product ('Bathroom', 'bathroom.jpg', 'img/bathroom.jpg'));
-productArray.push( new Product ('Boots', 'boots.jpg', 'img/boots.jpg'));
-productArray.push( new Product ('Breakfast', 'breakfast.jpg', 'img/breakfast.jpg'));
-productArray.push( new Product ('Bubblegum', 'bubblegum.jpg', 'img/bubblegum.jpg'));
-productArray.push( new Product ('Chair', 'chair.jpg', 'img/chair.jpg'));
-productArray.push( new Product ('Cthulhu', 'cthulhu.jpg', 'img/cthulhu.jpg'));
-productArray.push( new Product ('Dog-duck', 'dog-duck.jpg', 'img/dog-duck.jpg'));
-productArray.push( new Product ('Dragon', 'dragon.jpg', 'img/dragon.jpg'));
-productArray.push( new Product ('Pen', 'pen.jpg', 'img/pen.jpg'));
-productArray.push( new Product ('Pet-sweep', 'pet-sweep.jpg', 'img/pet-sweep.jpg'));
-productArray.push( new Product ('Scissors', 'scissors.jpg', 'img/scissors.jpg'));
-productArray.push( new Product ('Shark', 'shark.jpg', 'img/shark.jpg'));
-productArray.push( new Product ('Sweep', 'sweep.png', 'img/sweep.png'));
-productArray.push( new Product ('Tauntaun', 'tauntaun.jpg', 'img/tauntaun.jpg'));
-productArray.push( new Product ('Unicorn', 'unicorn.jpg', 'img/unicorn.jpg'));
-productArray.push( new Product ('USB', 'usb.gif', 'img/usb.gif'));
-productArray.push( new Product ('Water-can', 'water-can.jpg', 'img/water-can.jpg'));
-productArray.push( new Product ('Wine-glass', 'wine-glass.jpg', 'img/wine-glass.jpg'));
+
+function setup() {
+  productArray.push( new Product ('Bag', 'bag.jpg', 'img/bag.jpg'));
+  productArray.push( new Product ('Banana', 'banana.jpg', 'img/banana.jpg'));
+  productArray.push( new Product ('Bathroom', 'bathroom.jpg', 'img/bathroom.jpg'));
+  productArray.push( new Product ('Boots', 'boots.jpg', 'img/boots.jpg'));
+  productArray.push( new Product ('Breakfast', 'breakfast.jpg', 'img/breakfast.jpg'));
+  productArray.push( new Product ('Bubblegum', 'bubblegum.jpg', 'img/bubblegum.jpg'));
+  productArray.push( new Product ('Chair', 'chair.jpg', 'img/chair.jpg'));
+  productArray.push( new Product ('Cthulhu', 'cthulhu.jpg', 'img/cthulhu.jpg'));
+  productArray.push( new Product ('Dog-duck', 'dog-duck.jpg', 'img/dog-duck.jpg'));
+  productArray.push( new Product ('Dragon', 'dragon.jpg', 'img/dragon.jpg'));
+  productArray.push( new Product ('Pen', 'pen.jpg', 'img/pen.jpg'));
+  productArray.push( new Product ('Pet-sweep', 'pet-sweep.jpg', 'img/pet-sweep.jpg'));
+  productArray.push( new Product ('Scissors', 'scissors.jpg', 'img/scissors.jpg'));
+  productArray.push( new Product ('Shark', 'shark.jpg', 'img/shark.jpg'));
+  productArray.push( new Product ('Tauntaun', 'tauntaun.jpg', 'img/tauntaun.jpg'));
+  productArray.push( new Product ('Unicorn', 'unicorn.jpg', 'img/unicorn.jpg'));
+  productArray.push( new Product ('USB', 'usb.gif', 'img/usb.gif'));
+  productArray.push( new Product ('Water-can', 'water-can.jpg', 'img/water-can.jpg'));
+  productArray.push( new Product ('Wine-glass', 'wine-glass.jpg', 'img/wine-glass.jpg'));
+}
 
 var currentImages = [];
 var previousImages = [];
@@ -44,11 +46,6 @@ var productsParent = document.getElementById('products');
 //initiate 3 images on the screen
 function productSelector () {
   //populates 3 images on the screen that do not repeat from eachother or the previous 3
-  if (totalClicks) {
-    productsParent.removeChild(productsParent.lastChild);
-    productsParent.removeChild(productsParent.lastChild);
-    productsParent.removeChild(productsParent.lastChild);
-  };
   // verifiy that 3 images do not repeat from eachother or previous round
   while (img1 == img2 || img1 == img3 || img2 == img3 || img1 == previousImages[0] || img1 == previousImages[1] || img1 == previousImages[2] || img2 == previousImages[0] || img2 == previousImages[1] || img2 == previousImages[2] || img3 == previousImages[0] || img3 == previousImages[1] || img3 == previousImages[2]) {
     img1 = generateRandomProduct();
@@ -77,7 +74,10 @@ function productSelector () {
     };
   };
 }
-getClickState ();
+
+// check for any previous session data
+load();
+
 //call the function initially
 productSelector();
 
@@ -93,6 +93,10 @@ productsParent.addEventListener('click', function () {
   previousImages = currentImages.splice(0,3);
   totalClicks ++;
 
+  productsParent.removeChild(productsParent.lastChild);
+  productsParent.removeChild(productsParent.lastChild);
+  productsParent.removeChild(productsParent.lastChild);
+
   productSelector();
 // add to timesClicked++
   for (var j = 0; j < productArray.length; j++) {
@@ -100,7 +104,8 @@ productsParent.addEventListener('click', function () {
       productArray[j].timesClicked++;
     };
   };
-  createOrUpdateClickState ();
+  save();
+  // createOrUpdateClickState ();
 });
 
 //used for generating a random picture choice
@@ -118,45 +123,28 @@ function renderProductImage (productArray) {
 };
 
 //for storage
-
-function getClickState() {
-  var storageClickState = localStorage.getItem('clickSaveData');
-  var parsedClickState = JSON.parse(storageClickState);
-  return parsedClickState;
+//save data
+function save() {
+  var productString = JSON.stringify(productArray);
+  var clickString = JSON.stringify(totalClicks);
+  localStorage.setItem('products', productString);
+  localStorage.setItem('clicks', clickString);
 }
-
-function createOrUpdateClickState() {
-  var clickSaveData = {
-    Bag: productArray[0].timesClicked,
-    Banana: productArray[1].timesClicked,
-    Bathroom: productArray[2].timesClicked,
-    Boots: productArray[3].timesClicked,
-    Breakfast: productArray[4].timesClicked,
-    Bubblegum: productArray[5].timesClicked,
-    Chair: productArray[6].timesClicked,
-    Cthulhu: productArray[7].timesClicked,
-    DogDuck: productArray[8].timesClicked,
-    Dragon: productArray[9].timesClicked,
-    Pen: productArray[10].timesClicked,
-    PetSweep: productArray[11].timesClicked,
-    Scissors: productArray[12].timesClicked,
-    Shark: productArray[13].timesClicked,
-    Sweep: productArray[14].timesClicked,
-    Tauntaun: productArray[15].timesClicked,
-    Unicorn: productArray[16].timesClicked,
-    usb: productArray[17].timesClicked,
-    WaterCan: productArray[18].timesClicked,
-    WineGlass: productArray[19].timesClicked,
-  };
-  // convert to a stringified format
-  var stringifiedClickState = JSON.stringify(clickSaveData);
-  localStorage.setItem('clickSaveData', stringifiedClickState);
-  var storageClickState = localStorage.getItem('clickSaveData');
-  //unstringify it
-  var parsedClickState = JSON.parse(storageClickState);
-  return parsedClickState;
+//load previous session
+function load() {
+  try {
+    var productParse = JSON.parse(localStorage.getItem('products'));
+    var clickParse = JSON.parse(localStorage.getItem('clicks'));
+    if (productParse && clickParse) {
+      productArray = productParse;
+      totalClicks = clickParse;
+    } else {
+      setup();
+    }
+  } catch (error){
+    setup();
+  }
 }
-
 
 function showChart () {
   for (var i = 0; i < productArray.length; i++) {
@@ -193,5 +181,3 @@ function showChart () {
   });
   console.log (chart);
 }
-
-getClickState();
