@@ -9,26 +9,26 @@ function Product (name, fileName, filePath) {
 };
 
 var productArray = [];
-productArray.push( new Product ('Bag', 'bag.jpg', 'images/bag.jpg'));
-productArray.push( new Product ('Banana', 'banana.jpg', 'images/banana.jpg'));
-productArray.push( new Product ('Bathroom', 'bathroom.jpg', 'images/bathroom.jpg'));
-productArray.push( new Product ('Boots', 'boots.jpg', 'images/boots.jpg'));
-productArray.push( new Product ('Breakfast', 'breakfast.jpg', 'images/breakfast.jpg'));
-productArray.push( new Product ('Bubblegum', 'bubblegum.jpg', 'images/bubblegum.jpg'));
-productArray.push( new Product ('Chair', 'chair.jpg', 'images/chair.jpg'));
-productArray.push( new Product ('Cthulhu', 'cthulhu.jpg', 'images/cthulhu.jpg'));
-productArray.push( new Product ('Dog-duck', 'dog-duck.jpg', 'images/dog-duck.jpg'));
-productArray.push( new Product ('Dragon', 'dragon.jpg', 'images/dragon.jpg'));
-productArray.push( new Product ('Pen', 'pen.jpg', 'images/pen.jpg'));
-productArray.push( new Product ('Pet-sweep', 'pet-sweep.jpg', 'images/pet-sweep.jpg'));
-productArray.push( new Product ('Scissors', 'scissors.jpg', 'images/scissors.jpg'));
-productArray.push( new Product ('Shark', 'shark.jpg', 'images/shark.jpg'));
-productArray.push( new Product ('Sweep', 'sweep.png', 'images/sweep.png'));
-productArray.push( new Product ('Tauntaun', 'tauntaun.jpg', 'images/tauntaun.jpg'));
-productArray.push( new Product ('Unicorn', 'unicorn.jpg', 'images/unicorn.jpg'));
-productArray.push( new Product ('USB', 'usb.gif', 'images/usb.gif'));
-productArray.push( new Product ('Water-can', 'water-can.jpg', 'images/water-can.jpg'));
-productArray.push( new Product ('Wine-glass', 'wine-glass.jpg', 'images/wine-glass.jpg'));
+productArray.push( new Product ('Bag', 'bag.jpg', 'img/bag.jpg'));
+productArray.push( new Product ('Banana', 'banana.jpg', 'img/banana.jpg'));
+productArray.push( new Product ('Bathroom', 'bathroom.jpg', 'img/bathroom.jpg'));
+productArray.push( new Product ('Boots', 'boots.jpg', 'img/boots.jpg'));
+productArray.push( new Product ('Breakfast', 'breakfast.jpg', 'img/breakfast.jpg'));
+productArray.push( new Product ('Bubblegum', 'bubblegum.jpg', 'img/bubblegum.jpg'));
+productArray.push( new Product ('Chair', 'chair.jpg', 'img/chair.jpg'));
+productArray.push( new Product ('Cthulhu', 'cthulhu.jpg', 'img/cthulhu.jpg'));
+productArray.push( new Product ('Dog-duck', 'dog-duck.jpg', 'img/dog-duck.jpg'));
+productArray.push( new Product ('Dragon', 'dragon.jpg', 'img/dragon.jpg'));
+productArray.push( new Product ('Pen', 'pen.jpg', 'img/pen.jpg'));
+productArray.push( new Product ('Pet-sweep', 'pet-sweep.jpg', 'img/pet-sweep.jpg'));
+productArray.push( new Product ('Scissors', 'scissors.jpg', 'img/scissors.jpg'));
+productArray.push( new Product ('Shark', 'shark.jpg', 'img/shark.jpg'));
+productArray.push( new Product ('Sweep', 'sweep.png', 'img/sweep.png'));
+productArray.push( new Product ('Tauntaun', 'tauntaun.jpg', 'img/tauntaun.jpg'));
+productArray.push( new Product ('Unicorn', 'unicorn.jpg', 'img/unicorn.jpg'));
+productArray.push( new Product ('USB', 'usb.gif', 'img/usb.gif'));
+productArray.push( new Product ('Water-can', 'water-can.jpg', 'img/water-can.jpg'));
+productArray.push( new Product ('Wine-glass', 'wine-glass.jpg', 'img/wine-glass.jpg'));
 
 var currentImages = [];
 var previousImages = [];
@@ -112,7 +112,7 @@ function generateRandomProduct () {
 //used for rendering the images to the page
 function renderProductImage (productArray) {
   var img = document.createElement('img');
-  img.setAttribute('src', 'images/' + productArray.fileName);
+  img.setAttribute('src', 'img/' + productArray.fileName);
   img.setAttribute('id', productArray.fileName);
   productsParent.append(img);
 };
