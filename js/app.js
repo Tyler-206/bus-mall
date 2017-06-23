@@ -1,11 +1,5 @@
 'use strict';
-//persistence of data
-//when we persist date, we need to be able to do four things with it:
-// create the data -
-// retrieve it it
-// update it
-// delete it
-// CRUD = create, retrieve, update, delete
+
 function Product (name, fileName, filePath) {
   this.name = name;
   this.fileName = fileName;
@@ -77,34 +71,36 @@ function productSelector () {
   };
   renderProductImage(img3);
   currentImages.push(img3);
-
   for (i = 0; i < productArray.length; i++) {
     if (productArray[i].fileName == currentImages[2].fileName) {
       productArray[i].shown++;
     };
   };
 }
-createOrUpdateClickData ();
+getClickState ();
 //call the function initially
 productSelector();
 
-//make something happen when a picture is clicked
+//when a picture is clicked
 productsParent.addEventListener('click', function () {
   if (totalClicks === maxClicks) {
     productsParent.innerHTML = '';
     showChart();
     return;
   };
+  var chosen = event.target.getAttribute('id');
+
   previousImages = currentImages.splice(0,3);
   totalClicks ++;
-//trying to get it to add to timesClicked
+
   productSelector();
+// add to timesClicked++
   for (var j = 0; j < productArray.length; j++) {
-    if (productArray[j].fileName == currentImages[0 || 1 || 2].fileName) {
+    if (chosen == productArray[j].fileName) {
       productArray[j].timesClicked++;
     };
   };
-  getData();
+  createOrUpdateClickState ();
 });
 
 //used for generating a random picture choice
@@ -117,47 +113,51 @@ function generateRandomProduct () {
 function renderProductImage (productArray) {
   var img = document.createElement('img');
   img.setAttribute('src', 'images/' + productArray.fileName);
+  img.setAttribute('id', productArray.fileName);
   productsParent.append(img);
 };
 
 //for storage
-var clickSaveData = {
-  Bag: productArray[0].timesClicked,
-  Banana: productArray[1].timesClicked,
-  Bathroom: productArray[2].timesClicked,
-  Boots: productArray[3].timesClicked,
-  Breakfast: productArray[4].timesClicked,
-  Bubblegum: productArray[5].timesClicked,
-  Chair: productArray[6].timesClicked,
-  Cthulhu: productArray[7].timesClicked,
-  DogDuck: productArray[8].timesClicked,
-  Dragon: productArray[9].timesClicked,
-  Pen: productArray[10].timesClicked,
-  PetSweep: productArray[11].timesClicked,
-  Scissors: productArray[12].timesClicked,
-  Shark: productArray[13].timesClicked,
-  Sweep: productArray[14].timesClicked,
-  Tauntaun: productArray[15].timesClicked,
-  Unicorn: productArray[16].timesClicked,
-  usb: productArray[17].timesClicked,
-  WaterCan: productArray[18].timesClicked,
-  WineGlass: productArray[19].timesClicked,
-};
 
-
-function createOrUpdateClickData () {
-  var stringifiedClickData = JSON.stringify(clickSaveData);
-  localStorage.setItem('ClickData', stringifiedClickData);
-  var stringifiedTotalClicks = totalClicks.toString();
-  localStorage.setItem('TotalClicks', stringifiedTotalClicks);
-};
-
-function getData () {
-  var getClickData = localStorage.getItem('ClickData');
-  var getTotalClicks = localStorage.getItem('TotalClicks');
-  return [getClickData,getTotalClicks];
+function getClickState() {
+  var storageClickState = localStorage.getItem('clickSaveData');
+  var parsedClickState = JSON.parse(storageClickState);
+  return parsedClickState;
 }
-// Setting the charting in a function
+
+function createOrUpdateClickState() {
+  var clickSaveData = {
+    Bag: productArray[0].timesClicked,
+    Banana: productArray[1].timesClicked,
+    Bathroom: productArray[2].timesClicked,
+    Boots: productArray[3].timesClicked,
+    Breakfast: productArray[4].timesClicked,
+    Bubblegum: productArray[5].timesClicked,
+    Chair: productArray[6].timesClicked,
+    Cthulhu: productArray[7].timesClicked,
+    DogDuck: productArray[8].timesClicked,
+    Dragon: productArray[9].timesClicked,
+    Pen: productArray[10].timesClicked,
+    PetSweep: productArray[11].timesClicked,
+    Scissors: productArray[12].timesClicked,
+    Shark: productArray[13].timesClicked,
+    Sweep: productArray[14].timesClicked,
+    Tauntaun: productArray[15].timesClicked,
+    Unicorn: productArray[16].timesClicked,
+    usb: productArray[17].timesClicked,
+    WaterCan: productArray[18].timesClicked,
+    WineGlass: productArray[19].timesClicked,
+  };
+  // convert to a stringified format
+  var stringifiedClickState = JSON.stringify(clickSaveData);
+  localStorage.setItem('clickSaveData', stringifiedClickState);
+  var storageClickState = localStorage.getItem('clickSaveData');
+  //unstringify it
+  var parsedClickState = JSON.parse(storageClickState);
+  return parsedClickState;
+}
+
+
 function showChart () {
   for (var i = 0; i < productArray.length; i++) {
     productNames.push(productArray[i].name);
@@ -193,4 +193,5 @@ function showChart () {
   });
   console.log (chart);
 }
-getData();
+
+getClickState();
