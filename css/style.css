@@ -29,6 +29,7 @@ img {
   margin-bottom: auto;
   padding: 2%;
   max-height: 300px;
+  max-width: 280px;
 }
 
 img:hover {
