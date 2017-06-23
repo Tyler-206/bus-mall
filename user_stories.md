@@ -13,11 +13,16 @@ who, what, why
 - As a research team, they want to not reveal results until 25 selections have been made, to keep the product selection process untainted
 
 ### The developer
-- As a developer, want the app to look and feel to be generic and simple, so the focus is on the potential products
+- As a developer, want the app to look and feel to be generic, so the focus is on the potential products
+- As a developer, want the app to work, so that it can be used
+- As a developer, want the app to be simple to use, so that it is not a confusing for the user
+- As a developer, want all other users to be happy with the product, so they use developer services again
 
 ### The Focus Group participant
 - As a participant, they want the app to be easy to use, so they can use it.
 - As a participant, they want the images to be easy to see so they can make a good decision.
+- as a participant, they want the process to be quick and easy, so they can get whatever incentive they are getting
+- As a participant, they want an entertainment value, because everyone wants to be entertained
 
 ### Technical Requirements
 
