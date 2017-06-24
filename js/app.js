@@ -86,6 +86,8 @@ productsParent.addEventListener('click', function () {
   if (totalClicks === maxClicks) {
     productsParent.innerHTML = '';
     showChart();
+    totalClicks = 0;
+    save();
     return;
   };
   var chosen = event.target.getAttribute('id');
@@ -131,11 +133,19 @@ function save() {
   localStorage.setItem('clicks', clickString);
 }
 //load previous session
+
+
 function load() {
   try {
-    var productParse = JSON.parse(localStorage.getItem('products'));
-    var clickParse = JSON.parse(localStorage.getItem('clicks'));
-    if (productParse && clickParse) {
+    var getProducts = localStorage.getItem('products');
+    console.log(getProducts);
+    var productParse = JSON.parse(getProducts);
+    console.log(productParse);
+    var getClicks = localStorage.getItem('clicks');
+    console.log(getClicks);
+    var clickParse = JSON.parse(getClicks);
+    console.log(clickParse);
+    if (productParse !== null && clickParse !== null) {
       productArray = productParse;
       totalClicks = clickParse;
     } else {
